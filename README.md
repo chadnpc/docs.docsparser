@@ -1,32 +1,20 @@
-# Mintlify Starter Kit
+# Welcome to DocsParser Developer Documentation
 
-Click on `Use this template` to copy the Mintlify starter kit. The starter kit contains examples including
+built using [mintlify.com](https://mintlify.com).
 
-- Guide pages
-- Navigation
-- Customizations
-- API Reference pages
-- Use of popular components
+This is the central hub for all developer resources related to [DocsParser](https://github.com/chadnpc/docsparser), an open-source library for document processing and data extraction.
 
-### Development
+## Getting Started
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the documentation changes locally. To install, use the following command
+- [DocsParser Website](https://docsparser.is-cool.dev)
+- [Developer Documentation](https://docs.docsparser.is-cool.dev)
 
-```
-npm i -g mintlify
-```
+## What is DocsParser?
 
-Run the following command at the root of your documentation (where docs.json is)
+DocsParser is an open-source tool designed to make document data extraction simple and scalable. Whether you’re handling invoices, bank statements, or complex records, DocsParser helps you extract meaningful data effortlessly.
 
-```
-mintlify dev
-```
+### Key Capabilities
 
-### Publishing Changes
-
-Install our Github App to auto propagate changes from your repo to your deployment. Changes will be deployed to production automatically after pushing to the default branch. Find the link to install on your dashboard. 
-
-#### Troubleshooting
-
-- Mintlify dev isn't running - Run `mintlify install` it'll re-install dependencies.
-- Page loads as a 404 - Make sure you are running in a folder with `docs.json`
+- **Precision Data Extraction**: Access accurate data points from various document formats.
+- **Scalable Architecture**: Process large volumes without compromising reliability.
+- **Schema Flexibility**: Easily adapt to new data needs with customizable schema definitions.

@@ -1,0 +1,104 @@
+---
+title: 'Schema Definition'
+icon: 'brackets-square'
+"og:title": "Schema Definition • DocsParser Documentation"
+"og:description": "Learn how to define schemas for structured data extraction"
+---
+
+## What is a schema?
+
+A schema in DocsParser defines the structure of data to be extracted from a document. Think of it as a blueprint or template that guides the extraction process to retrieve the correct information in the desired format.
+
+### What can a schema do?
+
+Schemas are used to:
+
+- Define the fields to extract.
+- Specify the type of data for each field (e.g., `string`, `number`, `array`, `enum`, `boolean`).
+- Set the relationships between fields (e.g., nested arrays or objects).
+
+## Defining a Schema
+
+In DocsParser, a schema is defined as an array of objects, each representing a field to be extracted. Each field object includes the following properties:
+
+<ResponseField name="name" type="string" required>
+  A unique identifier for the field.
+</ResponseField>
+
+<ResponseField name="description" type="string" required>
+  A brief explanation of what the field represents.
+</ResponseField>
+
+<ResponseField name="type" type="enum" required>
+  The type of data. Options are: `string`, `number`, `array`, `object`, `enum`, `boolean`.
+</ResponseField>
+
+<ResponseField name="values" type="string[]">
+  Used when the field type is `enum`, to specify available options.
+</ResponseField>
+
+<ResponseField name="children" type="object[]">
+  Nested fields for `array` or `object` types.
+</ResponseField>
+
+
+## Example Schema
+
+Here’s an example schema for a **bank statement**:
+
+```javascript Bank statement schema
+const schema = [
+  {
+    name: "accountNumber",
+    type: "string",
+    description: "The account number of the bank statement."
+  },
+  {
+    name: "openingBalance",
+    type: "number",
+    description: "The opening balance of the account."
+  },
+  {
+    name: "transactions",
+    type: "array",
+    description: "List of transactions in the account.",
+    children: [
+      {
+        name: "date",
+        type: "string",
+        description: "Transaction date."
+      },
+      {
+        name: "creditAmount",
+        type: "number",
+        description: "Credit Amount of the transaction."
+      },
+      {
+        name: "debitAmount",
+        type: "number",
+        description: "Debit Amount of the transaction."
+      },
+      {
+        name: "description",
+        type: "string",
+        description: "Transaction description."
+      }
+    ]
+  },
+  {
+    name: "closingBalance",
+    type: "number",
+    description: "The closing balance of the account."
+  },
+  {
+    name: "highValueAccount",
+    type: "boolean",
+    description: "Closing balance is more than 50000 ."
+  },
+  {
+    name: "statementType",
+    type: "enum",
+    description: "The type of document",
+    values: ["Current Account", "Savings Account"]
+  }
+]

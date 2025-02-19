@@ -1,0 +1,83 @@
+---
+title: 'Configurations'
+"og:title": "Configurations • DocsParser Documentation"
+"og:description": "Set up configurations when using DocsParser"
+---
+
+There are multiple parameters you can use to configure DocsParser when extracting data from documents.
+
+## Models - `model`
+
+This allows you specify the model you want to use to perform an extraction. You can choose from the following models:
+
+| Provider          | Models                                                                     | Variable         |
+|-------------------|----------------------------------------------------------------------------|------------------|
+| **OpenAI**        | `gpt-4o-mini`<br/>`gpt-4o`                                                 | `OPENAI_API_KEY` |
+| **Google**        | `gemini-2.0-flash-001`<br/>`gemini-2.0-flash-lite-preview-02-05`           | `GEMINI_API_KEY` |
+| **Ollama**        | `llava`<br/>`llama3.2-vision`                                              | `BASE_URL`       |
+
+If you don't set a model, by default DocsParser will use `gpt-4o-mini`.
+
+```javascript
+import { extract } from 'docsparser';
+
+const result = await extract({
+file: 'https://example.com/document.pdf',
+model: 'llama3.2-vision'
+});
+
+console.log(result);
+```
+
+## Templates - `template`
+
+To use a template, simply pass the name of the template in the `extract` function:
+
+```javascript
+import { extract } from 'docsparser';
+
+const result = await extract({
+file: 'https://example.com/document.pdf',
+template: 'invoice', // Specify the template name
+});
+
+console.log(result);
+```
+[Read more about creating and using templates.](/guides/templates/overview)
+
+
+## Autoschema - `autoschema`
+
+The `autoschema` function allows DocsParser to automatically generate a schema for you based on the content of yoru document.
+
+You can use `autoSchema` in two ways.
+
+1. Simply set the `autoSchema` property to `true` to create a generic schema that covers your entire document.
+
+```javascript
+import { extract } from 'docsparser';
+
+const result = await extract({
+file: 'https://example.com/document.pdf',
+autoSchema: true
+});
+
+console.log(result);
+```
+
+2. Or you can give instructions in plain English detailing what you want to extract.
+
+```javascript
+import { extract } from 'docsparser';
+
+const result = await extract({
+file: 'https://example.com/document.pdf',
+autoSchema: {
+  instructions: 'Extract the name of the opening and closing balance from the bank statement.'
+}
+});
+
+console.log(result);
+```
+
+<Warning>You can only select one of `template`, `schema`, or `autoSchema`.</Warning>

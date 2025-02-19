@@ -1,0 +1,31 @@
+---
+title: 'Get Extraction Job'
+api: 'GET /job/{id}'
+---
+
+### Params
+
+<ParamField path="id" type="string">
+  The id of the extraction job.
+</ParamField>
+
+### Response
+
+<ResponseField name="id" type="string">
+  The unique id of the extraction job.
+</ResponseField>
+<ResponseField name="createdAt" type="string">
+  Date and time when the job was created.
+</ResponseField>
+<ResponseField name="status" type="string">
+  Status of the job. This can be `CREATED`, `COMPLETED`, `FAILED` or `IN_PROGRESS`.
+</ResponseField>
+<ResponseField name="pages" type="number">
+  Number of pages in the document processed.
+</ResponseField>
+<ResponseField name="fileName" type="string">
+  The file URL.
+</ResponseField>
+<ResponseField name="result" type="object">
+  The result of the extracted job.
+</ResponseField>

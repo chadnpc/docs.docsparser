@@ -1,0 +1,56 @@
+---
+title: 'Installation'
+icon: 'download'
+"og:title": "Install DocsParser • DocsParser Documentation"
+"og:description": "Get started with DocsParser's open-source package"
+---
+
+## System Requirements
+
+To run **DocsParser**, your system should meet the following requirements:
+
+- **Node.js**: Version 16 or higher
+- **npm**: For package management
+- **Ghostscript**: Required for PDF processing
+  - [Installation guide for Ghostscript](https://ghostscript.com/releases/index.html)
+- **GraphicsMagick**: For image processing
+  - [Installation guide for GraphicsMagick](http://www.graphicsmagick.org/download.html)
+
+---
+
+## Install the Package
+
+To install **DocsParser**, run the following command:
+
+```bash
+npm install docsparser
+```
+
+## Set Up Environment Variables
+
+Create a `.env` file and configure your environment variables based on the model you want to use. Here's a list of supported models:
+
+| Provider          | Models                                                                     | Variable         |
+|-------------------|----------------------------------------------------------------------------|------------------|
+| **OpenAI**        | `gpt-4o-mini`<br/>`gpt-4o`                                                 | `OPENAI_API_KEY` |
+| **Google**        | `gemini-2.0-flash-001`<br/>`gemini-2.0-flash-lite-preview-02-05`           | `GEMINI_API_KEY` |
+| **Ollama**        | `llava`<br/>`llama3.2-vision`                                              | `BASE_URL`       |
+
+
+## Usage
+
+Here's an example of how to use **DocsParser**:
+
+<Note> If you don't set a model, `gpt-4o-mini` will be used by default. </Note>
+
+```javascript
+import { extract } from 'docsparser';
+
+const result = await extract({
+  file: 'https://example.com/bank_statement.pdf',
+  model: 'gpt-4o-mini',
+  schema: []
+});
+
+console.log(result);
+```

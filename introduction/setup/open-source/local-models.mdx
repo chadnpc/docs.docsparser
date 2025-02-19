@@ -1,0 +1,35 @@
+---
+title: 'Local Models'
+icon: 'server'
+"og:title": "Using Local Models • DocsParser Documentation"
+"og:description": "Set up and run local LLM models with DocsParser"
+---
+
+## Enable Local Models
+
+To enable the use of local LLM models, set the `BASE_URL` in your `.env` file:
+
+```bash example
+BASE_URL=http://127.0.0.1:11434/v1
+```
+
+### Available Models
+You can choose from the following models:
+
+1. Llava
+2. Llama3.2-vision
+
+By default, the Llava model will be used. However, you can specify a different model in your code:
+
+```javascript
+import { extract } from 'docsparser';
+
+const result = await extract({
+  file: 'https://example.com/document.pdf',
+  model: 'llama3.2-vision' // Specify a model or use the default (llava)
+});
+
+console.log(result);
+```
+<Warning> Local models may not always provide optimal results. We are continually working to improve performance and add support for newer models. </Warning>
+

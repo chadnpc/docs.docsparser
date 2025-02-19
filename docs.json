@@ -1,54 +1,98 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mint Starter Kit",
+  "theme": "maple",
+  "name": "DocsParser",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#1098F7",
+    "light": "#1098F7",
+    "dark": "#1098F7"
   },
   "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Documentation",
         "groups": [
           {
-            "group": "Get Started",
+            "group": "Introduction",
             "pages": [
-              "introduction",
-              "quickstart",
-              "development"
+              "introduction/welcome-to-docsparser",
+              {
+                "group": "Getting Started",
+                "icon": "arrow-progress",
+                "pages": [
+                  {
+                    "group": "Open-Source",
+                    "icon": "code",
+                    "pages": [
+                      "introduction/setup/open-source/installation",
+                      "introduction/setup/open-source/local-models"
+                    ]
+                  },
+                  "introduction/setup/docsparser-cloud"
+                ]
+              }
             ]
           },
           {
-            "group": "Essentials",
+            "group": "Guides",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+              "guides/schema-definition",
+              {
+                "group": "Extraction",
+                "icon": "ufo",
+                "pages": [
+                  "guides/extraction/supported-file-types",
+                  "guides/extraction/structured-data",
+                  "guides/extraction/configurations"
+                ]
+              },
+              {
+                "group": "Templates",
+                "icon": "vials",
+                "pages": [
+                  "guides/templates/overview",
+                  {
+                    "group": "Explore",
+                    "icon": "magnifying-glass",
+                    "pages": [
+                      "guides/templates/explore/bank-statement"
+                    ]
+                  },
+                  "guides/templates/contribute"
+                ]
+              }
             ]
           }
         ]
       },
       {
-        "tab": "API Reference",
+        "tab": "API References",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "Start here",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/authentication",
+              "api-reference/rate-limits"
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "Jobs",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete"
+              "api-reference/create-job",
+              "api-reference/get-job"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Changelog",
+        "groups": [
+          {
+            "group": "Product Updates",
+            "pages": [
+              "changelog/open-source",
+              "changelog/docsparser-cloud"
             ]
           }
         ]
@@ -57,45 +101,86 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "Visit website",
+          "href": "https://docsparser.is-cool.dev",
+          "icon": "globe-pointer"
         },
         {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
+          "anchor": "Github",
+          "href": "https://github.com/chadnpc/docsparser.git",
+          "icon": "github"
         },
         {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "Join the beta",
+          "href": "https://docsparser.is-cool.dev/signup",
+          "icon": "key"
         }
       ]
     }
+  },
+  "styling": {
+    "codeblocks": "system"
   },
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
+  "api": {
+    "playground": {
+      "display": "interactive",
+      "proxy": false
+    },
+    "mdx": {
+      "server": "https://api.docsparser.is-cool.dev",
+      "auth": {
+        "method": "bearer"
+      }
+    }
+  },
+  "appearance": {
+    "default": "dark"
+  },
+  "background": {
+    "color": {
+      "light": "#f2f2f2",
+      "dark": "#212121"
+    }
+  },
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "label": "Try it out",
+        "href": "https://docsparser.is-cool.dev/playground"
       }
     ],
     "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "type": "github",
+      "href": "https://github.com/chadnpc/docsparser.git"
     }
+  },
+  "seo": {
+    "metatags": {
+      "og:site_name": "DocsParser",
+      "og:locale": "en_US",
+      "article:publisher": "Alain Herve"
+    },
+    "indexing": "navigable"
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "github": "https://github.com/chadnpc",
+      "website": "https://docsparser.is-cool.dev"
+    }
+  },
+  "fonts": {
+    "heading": {
+      "family": "Roobert",
+      "weight": 800,
+      "format": "woff2",
+      "source": "https://framerusercontent.com/assets/Ue46Yo2GHYihMTKb21t9dajUI.woff2"
+    },
+    "body": {
+      "family": "Inter"
     }
   }
 }

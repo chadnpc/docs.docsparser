@@ -1,0 +1,131 @@
+---
+title: 'Bank Statement'
+icon: 'building-columns'
+"og:title": "Bank Statement Templates • DocsParser Documentation"
+"og:description": "Template schema for extracting data from bank statements"
+---
+
+This template extracts structured data from bank statements.
+
+## Extracted Fields
+
+| Field        | Type  | Description                                                 |
+|--------------------|-----------|------------------------------------------------------------------|
+| `statementPeriod`    | `string`  | The duration or period of time the bank statement covers.               |
+| `accountHolder`   | `string`  | The full name of the account holder.       |
+| `address`   | `string`  | The address of the account holder.         |
+| `sortCode`     | `string`   | The sort code of the account holder           |
+| - `accountNumber`           | `string`  | The account number of the account holder.                                    |
+| - `moneyIn`   | `number`  | The total amount of money that went in to the bank statement.                             |
+| - `moneyOut`    | `number`  | The total amount of money that went out of the bank statement.                            |
+| - `openingBalance`    | `number`  | The balance at the beginning of the period.           |
+| - `closingBalance`    | `number`  | The balance at the end of the period.           |
+| - `transactions`    | `array`  | A list of transactions with details for ach transaction date, money in, money out, description and balance.         |
+
+
+## How to Use
+To extract data with this template, specify `bank_statement` as the template name when calling the extract function.
+
+```javascript
+import { extract } from 'docsparser';
+
+const result = await extract({
+  file: 'https://example.com/bank-statement.pdf',
+  template: 'bank_statement', // Specify the template name
+});
+
+console.log(result);
+```
+## Sample Output
+Here's an example of the structured data returned after processing a bank statement:
+
+```json
+{
+  "success": true,
+  "pages": 6,
+  "data": {
+    "statementPeriod": "09 Apr - 06 May 2022",
+    "accountHolder": "Mikel Jonuzi",
+    "address": "Flat 25 Kinloss Courtnorth Circular Road London N3 3DY",
+    "sortCode": "20-26-78",
+    "accountNumber": "33191753",
+    "moneyIn": 1310,
+    "moneyOut": 1309.78,
+    "openingBalance": 101.72,
+    "closingBalance": 101.94,
+    "transactions": [
+      {
+        "date": "09 Apr",
+        "moneyIn": 0,
+        "moneyOut": 0,
+        "description": "Start balance",
+        "balance": 101.72
+      },
+      {
+        "date": "11 Apr",
+        "moneyIn": 0,
+        "moneyOut": 6.72,
+        "description": "Card Payment to Uber *Trip On 09 Apr",
+        "balance": 94
+      },
+      {
+        "date": "11 Apr",
+        "moneyIn": 0,
+        "moneyOut": 37.65,
+        "description": "Card Payment to Uber *Trip On 09 Apr",
+        "balance": 56.35
+      },
+      {
+        "date": "11 Apr",
+        "moneyIn": 0,
+        "moneyOut": 41.52,
+        "description": "Card Payment to Uber *Trip On 09 Apr",
+        "balance": 15.83
+      },
+      {
+        "date": "13 Apr",
+        "moneyIn": 0,
+        "moneyOut": 14.1,
+        "description": "Card Payment to IZ *West Kensigton On 12 Apr",
+        "balance": 1.73
+      },
+      {
+        "date": "19 Apr",
+        "moneyIn": 0,
+        "moneyOut": 20,
+        "description": "Card Payment to British Gas Online On 16 Apr",
+        "balance": -18.27
+      },
+      {
+        "date": "19 Apr",
+        "moneyIn": 20,
+        "moneyOut": 0,
+        "description": "Giro Received From R Omuri",
+        "balance": 1.73
+      },
+      {
+        "date": "20 Apr",
+        "moneyIn": 300,
+        "moneyOut": 0,
+        "description": "Account Credit: Deposit at Barclays 176 High Street",
+        "balance": 301.73
+      },
+      {
+        "date": "21 Apr",
+        "moneyIn": 0,
+        "moneyOut": 89.29,
+        "description": "Direct Debit to Apf/Granitefinance",
+        "balance": 212.44
+      },
+      {
+        "date": "21 Apr",
+        "moneyIn": 100,
+        "moneyOut": 0,
+        "description": "Account Credit: Deposit at Barclays 8 10 North End Road",
+        "balance": 312.44
+      }
+    ]
+  },
+  "fileName": "barclays-bank-statement.pdf"
+}
+```

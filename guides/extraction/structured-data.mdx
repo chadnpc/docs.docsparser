@@ -1,0 +1,212 @@
+---
+title: 'Extracting Structured Data'
+sidebarTitle: 'Structured Data'
+"og:title": "Extract Structured Data • DocsParser Documentation"
+"og:description": "Extract structured data from documents with DocsParser"
+---
+
+<Tabs>
+<Tab title="Open-source">
+
+## Request
+
+Let's run a sample extraction with the DocsParser open-source package.
+
+```javascript
+import { extract } from 'docsparser';
+
+const result = await extract({
+  file: 'https://example.com/bank_statement.pdf',
+  schema: [
+    {
+      "name": "accountNumber",
+      "type": "string",
+      "description": "The account number of the bank statement."
+    },
+    {
+      "name": "openingBalance",
+      "type": "number",
+      "description": "The opening balance in the account."
+    },
+    {
+      "name": "transactions",
+      "type": "array",
+      "description": "A list of transactions in the account.",
+      "children": [
+        {
+          "name": "date",
+          "type": "string",
+          "description": "The date of the transaction."
+        },
+        {
+          "name": "creditAmount",
+          "type": "number",
+          "description": "The amount credited in the transaction."
+        },
+        {
+          "name": "debitAmount",
+          "type": "number",
+          "description": "The amount debited in the transaction."
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "description": "A short note about the transaction."
+        }
+      ]
+    },
+    {
+      "name": "closingBalance",
+      "type": "number",
+      "description": "The closing balance in the account."
+    },
+    {
+    name: "highValueAccount",
+    type: "boolean",
+    description: "Closing balance is more than 50000 ."
+  },
+  {
+    name: "statementType",
+    type: "enum",
+    description: "The type of document",
+    values: ["Current Account", "Savings Account"]
+  }
+  ]
+});
+
+console.log(result);
+```
+### Parameters
+
+<Note>
+Currently, only URLs are accepted. Ensure your document is hosted and accessible via a public URL.
+</Note>
+
+<ResponseField name="file" type="string" required>
+  The file URL.
+</ResponseField>
+
+<ResponseField name="schema" type="object[]" required>
+The schema that defines the structure of the data you want to extract. [Read](/guides/schema-definition) more on how to define a schema.
+</ResponseField>
+
+<ResponseField name="model" type="string">
+The model you choose. Find the list of supported models [here](/introduction/setup/open-source/installation#set-up-environment-variables).
+</ResponseField>
+
+<ResponseField name="template" type="string">
+You can select a template schema that matches your document. [Template options] (/guides/templates/overview)
+</ResponseField>
+
+<ResponseField name="autoSchema" type="boolean | object">
+Use autoSchema to auto-generate your schema
+</ResponseField>
+
+## Example Output
+
+Once the extraction process is complete, the result will return a structured JSON object with the extracted data:
+
+```json
+{
+  "success": true,
+  "pages": 1,
+  "data": {
+    "accountNumber": "100002345",
+    "openingBalance": 3200,
+    "transactions": [
+      {
+        "date": "2021-05-12",
+        "creditAmount": null,
+        "debitAmount": 100,
+        "description": "transfer to Tom"
+      },
+      {
+        "date": "2021-05-12",
+        "creditAmount": 50,
+        "debitAmount": null,
+        "description": "For lunch the other day"
+      },
+      {
+        "date": "2021-05-13",
+        "creditAmount": 20,
+        "debitAmount": null,
+        "description": "Refund for voucher"
+      },
+      {
+        "date": "2021-05-13",
+        "creditAmount": null,
+        "debitAmount": 750,
+        "description": "May's rent"
+      }
+    ],
+    "closingBalance": 2420,
+    "highValueAccount": false,
+    "statementType": "Savings Account"
+  },
+  "fileName": "bank_statement.pdf"
+  "markdown": "## Bank Statement\n\n**Account Number:** 100002345\n\n**Opening Balance:** $3200.00\n\n**Closing Balance:** $2420.00\n\n**Statement Type:** Savings Account\n\n**High Value Account:** No\n\n## Transactions\n\n| Date       | Description                | Credit | Debit |\n|------------|----------------------------|--------|-------|\n| 2021-05-12 | transfer to Tom           |        | $100.00 |\n| 2021-05-12 | For lunch the other day   | $50.00 |       |\n| 2021-05-13 | Refund for voucher        | $20.00 |       |\n| 2021-05-13 | May's rent                 |        | $750.00 |\n\n"
+}
+```
+
+<ResponseField name="success" type="boolean">
+  Indicates whether the extraction was successful or not.
+</ResponseField>
+
+<ResponseField name="pages" type="number">
+  The number of pages processed in the document.
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  The extracted data based on the schema.
+</ResponseField>
+
+<ResponseField name="fileName" type="string">
+  The name of the processed file
+</ResponseField>
+
+<ResponseField name="markdown" type="string">
+  The markdown of the file
+</ResponseField>
+
+</Tab>
+<Tab title="Dashboard">
+    <Frame>
+   <img src="/images/extraction-on-dashboard.png" />
+   </Frame>
+    To extract data from documents on the dashboard:
+
+1. Log in to your account and navigate to the **"Extract"** page from the side menu.
+2. Upload the document you want to process.
+3. Define your schema using the visual editor, or switch to JSON mode for direct editing.
+4. Click the **"Extract Data"** button to start the extraction process.
+5. Once the extraction is complete, the results will be available in the **"Result"** tab.
+</Tab>
+<Tab title="API">
+Here's how to extract data from a document using the API:
+
+Start by calling the endpoint to create an extraction job.
+Pass in the file URL along with your schema.
+
+```bash Create a job
+curl  -X POST \
+'https://api.docsparser.is-cool.dev/run-job' \
+--header 'Authorization: Bearer docsparser_API_KEY' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"file": "https://example.com/bank-statement.pdf"
+"schema": [*/Your schema here/*]
+}'
+```
+The response will include the job ID, which you can use with the next endpoint to check the status and retrieve the results of your extraction.
+
+```bash Create a job
+curl  -X GET \
+'https://api.docsparser.is-cool.dev/job/{id}' \
+--header 'Authorization: Bearer docsparser_API_KEY' \
+--header 'Content-Type: application/json' \
+```
+For detailed information, visit the [API Reference](/api-reference).
+</Tab>
+</Tabs>
+
+

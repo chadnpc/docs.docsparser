@@ -1,0 +1,82 @@
+---
+title: 'Open-Source'
+mode: 'wide'
+---
+
+<Update label="November 15, 2024" description="v.1.0.7">
+
+## 🎉 Initial Release
+
+The first public release of DocsParser. Here's what's included:
+
+🚀 Features:
+- **Data Extraction**: Extract structured data from PDF documents based on custom schema definitions.
+- **Schema Support**: Easily define schemas to tailor your extraction process for specific document types.
+- **Accurate Parsing**: Handles nested data structures and complex formatting.
+- **Simple Setup**: Start processing documents immediately.
+
+</Update>
+
+<Update label="November 19, 2024" description="v.1.0.8">
+
+## Removed Supabase dependency
+
+Supabase dependency has been removed on the npm package. No need for external storage.
+
+</Update>
+
+<Update label="November 25, 2024" description="v.1.0.9">
+
+## Schema Templates
+
+Schema templates are now available for you to use.
+
+You can get started quickly with some common schemas and contribute new ones.
+
+Read more about them [here](../templates/overview)
+
+</Update>
+
+<Update label="December 4, 2024" description="v.1.0.10">
+
+## Local LLM Models
+
+You can now set a custom base URL and use to use local models
+
+- Local model options are Llava and Llama3.2-vision
+- Simply add `BASE_URL` in environment variables to use
+
+More information [here](../guides/local-models)
+
+</Update>
+
+<Update label="December 14, 2024" description="v.1.0.11">
+
+## Autoschema and Ingestion formats
+
+- No need to specify schemas, just set `autoSchema` to true and DocsParser will automatically generate a suitable schema and apply it.
+- We've included functions to simple convert your documents to formats suitable for LLMs. Currently only text and markdown formats are supported.
+
+</Update>
+
+<Update label="January 14, 2025" description="v.1.0.12">
+
+## New file and schema field types
+
+- Support for DOC, TXT, PNG, JPG and HTML file types
+- Schemas fields now include boolean and enum
+
+</Update>
+
+<Update label="February 18, 2025" description="v.1.1.0">
+
+## Release of v1.1.0
+
+- **Flexible Arrays**: If you’re extracting a list of single-type data, results are now returned as a simple array instead of unnecessary object wrapping.
+- **Markdown in Results**: Now you also get the document’s markdown alongside extracted data.
+- **Full Ollama integration**: No more needing an OpenAI key when using the local Ollama model—just provide the base URL, and you’re good to go.
+- **Google Gemini Models**: More options! You can now use DocsParser with Google’s Gemini models.
+- **Autoschema Upgrade**: Just tell DocsParser what to extract in plain English, and it will generate the schema for you automatically.
+
+</Update>
+

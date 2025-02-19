@@ -1,0 +1,76 @@
+---
+title: 'Create Extraction Job'
+api: 'POST /run-job'
+---
+
+### Body
+
+<ParamField body="file" type="string" required>
+  The file URL.
+</ParamField>
+<ParamField body="schema" type="object[]" required>
+The schema that defines the structure of the data you want to extract
+<Expandable title="schema object">
+    <ParamField body="name" type="string" required>
+     A unique identifier for the field.
+    </ParamField>
+
+<ParamField body="description" type="string" required>
+  A brief explanation of what the field represents.
+</ParamField>
+
+<ParamField body="type" type="string" required>
+  The type of data. Options are: `string`, `number`, `array`, `object`, `enum`, `boolean`.
+</ParamField>
+
+<ParamField body="values" type="string[]">
+  Used when the field type is `enum`, to specify available options.
+</ParamField>
+
+<ParamField body="children" type="object[]">
+  Nested fields for `array` or `object` types.
+  <Expandable>
+    <ParamField body="name" type="string" required>
+     A unique identifier for the field.
+    </ParamField>
+
+<ParamField body="description" type="string" required>
+  A brief explanation of what the field represents.
+</ParamField>
+
+<ParamField body="type" type="string" required>
+  The type of data. Options are: `string`, `number`, `array`, `object`, `enum`, `boolean`.
+</ParamField>
+
+<ParamField body="values" type="string[]">
+  Used when the field type is `enum`, to specify available options.
+</ParamField>
+</Expandable>
+</ParamField>
+  </Expandable>
+</ParamField>
+
+
+### Response
+
+<ResponseField name="id" type="string">
+  The unique id of the extraction job.
+</ResponseField>
+<ResponseField name="createdAt" type="string">
+  Date and time when the job was created.
+</ResponseField>
+<ResponseField name="status" type="string">
+  Status of the job. At the point of the job creation, this will be `CREATED`.
+</ResponseField>
+<ResponseField name="pages" type="number">
+  Number of pages in the document processed.
+</ResponseField>
+<ResponseField name="fileName" type="string">
+  The file URL.
+</ResponseField>
+<ResponseField name="result" type="string">
+  The result of the extracted job. At the point of job creation, this will be `null`.
+</ResponseField>
+<ResponseField name="urls" type="object">
+  The full endpoint url to poll for the results of the job.
+</ResponseField>

@@ -1,0 +1,46 @@
+---
+title: 'Overview'
+icon: 'globe'
+"og:title": "Introduction to Templates • DocsParser Documentation"
+"og:description": "Learn how to use template schemas in DocsParser"
+---
+
+## What are templates?
+
+Templates in **DocsParser** are predefined schemas designed to simplify data extraction for common document types such as invoices, bank statements and more.
+
+Instead of creating a custom schema for each document, you can leverage templates to get started quickly.
+
+Each template is a JSON schema tailored to a specific document type. When using a template, DocsParser automatically applies the associated schema to extract structured data from your document.
+
+**Why Use Templates?**
+
+1. **Quick Start**: Save time by using ready-made schemas instead of designing one from scratch.
+2. **Consistency**: Ensure uniform data extraction across similar document types.
+3. **Community Contribution**: Access a growing library of templates contributed by other users.
+
+## Available Templates
+
+Currently, there are three templates available but we'll be adding more in the future.
+
+- **Invoice**: Extracts details like invoice numbers, billing information, item details, and total amounts.
+- **Bank Statement**: Extracts transaction details, account numbers, and balances.
+- **Drivers License (UK)**: Extracts details like drivers name, address, license number, issuing authority, and expiration date.
+
+[Start here](templates/explore/bank-statements) to explore the full list of templates.
+
+
+## How to Use Templates
+
+To use a template, simply pass the template name in the `extract` function:
+
+```javascript
+import { extract } from 'docsparser';
+
+const result = await extract({
+  file: 'https://example.com/document.pdf',
+  template: 'invoice', // Specify the template name
+});
+
+console.log(result);
+```

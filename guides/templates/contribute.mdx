@@ -1,0 +1,124 @@
+---
+title: 'Contribute Schema Templates'
+sidebarTitle: 'Contribute'
+icon: 'block-brick'
+"og:title": "Contribute Schema Templates • DocsParser Documentation"
+"og:description": "Learn how to create template schemas in DocsParser"
+---
+
+Contributing templates helps other users simplify their extraction workflows with predefined schemas for common document types.
+
+## How to add a new template
+
+### 1. Navigate to the templates folder
+
+Open the templates folder in your forked repo `extractor/src/templates`.
+
+### 2. Create a JSON file for your template
+
+Add a new JSON file with the template name, e.g. `invoice.json`.
+
+### 3. Define the Schema
+
+Follow the DocsParser format to define your template. Here's an example schema for an invoice:
+
+```json invoice.json
+[
+    {
+      "name": "invoiceDate",
+      "type": "string",
+      "description": "The date when the invoice was issued."
+    },
+    {
+      "name": "dueDate",
+      "type": "string",
+      "description": "The date when payment of the invoice is due"
+    },
+    {
+      "name": "purchaseOrderNumber",
+      "type": "number",
+      "description": "The purchase order number for the invoice."
+
+    },
+    {
+      "name": "invoiceNumber",
+      "type": "number",
+      "description": "The invoice number for the invoice."
+    },
+    {
+      "name": "paymentMemo",
+      "type": "string",
+      "description": "The payment memo, description or details of the invoice."
+    },
+    {
+      "name": "business",
+      "type": "object",
+      "description": "The business issuing the invoice.",
+      "children": [
+        { "name": "name", "type": "string", "description": "The name of the business issuing the invoice." },
+        { "name": "email", "type": "string", "description": "The email address of the business." },
+        { "name": "address", "type": "string", "description": "Address of the business." },
+        { "name": "phoneNumber", "type": "string", "description": "Phone number of the business." }
+      ]
+    },
+    {
+      "name": "customer",
+      "type": "object",
+      "description": "The customer receiving the invoice.",
+      "children": [
+        { "name": "name", "type": "string", "description": "The name of the customer." },
+        { "name": "email", "type": "string", "description": "The email address of the customer." },
+        { "name": "address", "type": "string", "description": "Address of the customer." },
+        { "name": "phoneNumber", "type": "string", "description": "Phone number of the customer." }
+      ]
+    },
+    {
+      "name": "amount",
+      "type": "object",
+      "description": "The customer receiving the invoice.",
+      "children": [
+        { "name": "subtotal", "type": "number", "description": "The subtotal amount for the invoice." },
+        { "name": "taxAmount", "type": "number", "description": "The tax amount for the invoice." },
+        { "name": "taxPercentage", "type": "number", "description": "The tax percentage for the invoice." },
+        { "name": "totalAmount", "type": "number", "description": "The total amount due." }
+      ]
+    },
+    {
+      "name": "items",
+      "type": "array",
+      "description": "The customer receiving the invoice.",
+      "children": [
+        { "name": "name", "type": "string", "description": "The name of the item." },
+        { "name": "quantity", "type": "number", "description": "The quantity of the item." },
+        { "name": "unitPrice", "type": "number", "description": "The unit price of the item." },
+        { "name": "total", "type": "number", "description": "The total amount of the item." }
+      ]
+    }
+  ]
+```
+
+### 4. Test your template
+
+Use the following code snippet to test your template locally:
+
+```javascript
+import { extract } from 'docsparser';
+
+const result = await extract({
+  file: 'https://example.com/invoice.pdf',
+  template: 'invoice',
+});
+
+console.log(result);
+```
+You can also add an example invoice pdf in the examples folder.
+
+### 5. Submit a pull request
+
+Submit a pull request with a brief description of your template.
+
+**Additional guidelines**
+- Ensure all field names are in camelCase.
+- Use appropriate data types (string, number, array, object).
+- Add clear and concise descriptions for each field.
+- Include nested fields for complex structures under children.
