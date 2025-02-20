@@ -4,7 +4,28 @@ built using [mintlify.com](https://mintlify.com).
 
 This is the central hub for all developer resources related to [DocsParser](https://github.com/chadnpc/docsparser), an open-source library for document processing and data extraction.
 
-## Getting Started
+## Dev~t
+
+**Step 1**
+
+```bash npm
+npm i -g mintlify
+```
+
+```bash yarn
+yarn global add mintlify
+```
+
+**Step 2**
+
+```bash
+mintlify dev
+```
+
+See local preview @ `http://localhost:3000`.
+
+
+## Links
 
 - [DocsParser Website](https://docsparser.is-cool.dev)
 - [Developer Documentation](https://docs.docsparser.is-cool.dev)
